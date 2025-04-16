@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Mood Riddle Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background: linear-gradient(135deg, #fceabb 0%, #f8b500 100%);
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    h1 {
+      color: #333;
+      margin-top: 40px;
+      font-size: 2.2em;
+      letter-spacing: 1px;
+    }
+    .mood-select {
+      margin: 20px 0;
+      font-size: 1.1em;
+    }
+    .riddle-box {
+      background: #fffbe6;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #0002;
+      padding: 32px 28px;
+      width: 350px;
+      min-height: 120px;
+      margin: 20px 0 10px 0;
+      text-align: center;
+      font-size: 1.17em;
+      color: #5a3e00;
+      transition: background 0.2s;
+    }
+    .answer-box {
+      margin: 16px 0 0 0;
+      font-size: 1.1em;
+      color: #2d7a2d;
+      font-weight: bold;
+      display: none;
+    }
+    .btn {
+      background: #f8b500;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 26px;
+      font-size: 1.08em;
+      margin: 8px 6px 0 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 6px #0001;
+    }
+    .btn:hover {
+      background: #ffcb3b;
+      color: #333;
+    }
+    .footer {
+      margin-top: 48px;
+      color: #333a;
+      font-size: 0.95em;
+      text-align: center;
+    }
+    @media (max-width: 500px) {
+      .riddle-box { width: 92vw; padding: 18px 6vw; }
+    }
+  </style>
+</head>
+<body>
+  <h1>AI Mood Riddle Generator</h1>
+  <div class="mood-select">
+    <label for="mood">Choose your mood:</label>
+    <select id="mood">
+      <option value="happy">Happy</option>
+      <option value="curious">Curious</option>
+      <option value="silly">Silly</option>
+      <option value="mysterious">Mysterious</option>
+      <option value="motivational">Motivational</option>
+    </select>
+    <button class="btn" onclick="generateRiddle()">Get Riddle</button>
+  </div>
+  <div class="riddle-box" id="riddleBox">
+    <em>Select a mood and click "Get Riddle"!</em>
+  </div>
+  <button class="btn" id="showAnswerBtn" onclick="showAnswer()" style="display:none;">Show Answer</button>
+  <div class="answer-box" id="answerBox"></div>
+  <div class="footer">
+    <a href="scratch.html" style="color:#5a3e00;text-decoration:underline;">Back to Scratch Page</a>
+    <br>
+    <span>Made by David McConkie & AI, 2025</span>
+  </div>
+  <script>
+    const riddles = {
+      happy: [
+        {
+          q: "What kind of tree fits in your hand and always makes you smile?",
+          a: "A palm tree!"
+        },
+        {
+          q: "What is always in front of you but can’t be seen, and is full of bright possibilities?",
+          a: "The future!"
+        }
+      ],
+      curious: [
+        {
+          q: "I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?",
+          a: "An echo."
+        },
+        {
+          q: "What gets wetter as it dries?",
+          a: "A towel."
+        }
+      ],
+      silly: [
+        {
+          q: "Why did the math book look sad?",
+          a: "Because it had too many problems!"
+        },
+        {
+          q: "What do you call a bear with no teeth?",
+          a: "A gummy bear!"
+        }
+      ],
+      mysterious: [
+        {
+          q: "The more you take, the more you leave behind. What are they?",
+          a: "Footsteps."
+        },
+        {
+          q: "I have keys but no locks. I have space but no rooms. You can enter, but you can’t go outside. What am I?",
+          a: "A keyboard."
+        }
+      ],
+      motivational: [
+        {
+          q: "What belongs to you, but other people use it more than you do?",
+          a: "Your name."
+        },
+        {
+          q: "What can you break, even if you never pick it up or touch it?",
+          a: "A promise."
+        }
+      ]
+    };
+
+    let currentRiddle = null;
+
+    function generateRiddle() {
+      const mood = document.getElementById('mood').value;
+      const riddleArr = riddles[mood];
+      const idx = Math.floor(Math.random() * riddleArr.length);
+      currentRiddle = riddleArr[idx];
+      document.getElementById('riddleBox').innerHTML = currentRiddle.q;
+      document.getElementById('answerBox').style.display = 'none';
+      document.getElementById('showAnswerBtn').style.display = 'inline-block';
+    }
+
+    function showAnswer() {
+      if (currentRiddle) {
+        document.getElementById('answerBox').innerHTML = currentRiddle.a;
+        document.getElementById('answerBox').style.display = 'block';
+        document.getElementById('showAnswerBtn').style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
